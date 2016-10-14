@@ -1,0 +1,22 @@
+html{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+body{
+    background-color: aliceblue;
+}
+.formulario{
+    padding: 8px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    border-bottom: grey solid 1px;
+    border-left: grey solid 1px;
+}
+.centrado{
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
