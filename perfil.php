@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
 include "inicializar.php";
-
 ?>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -35,18 +34,7 @@ and open the template in the editor.
         </ul>
     </div>
 </nav>
-<h4>Bienvenido nuevo usuario</h4>
-<form action="perfil.php" method="post" class="formulario">
-    <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo">
-    <input type="text" id="cuenta" placeholder="Nombre de la cuenta (debe ser unico)">
-    <input type="email" id="email" placeholder="Email@nuevo.ya">
-    <input type="password" id="clave" placeholder="Clave">
-    <input type="password" id="verificar-clave" placeholder="Repetir clave">
-    <input type="submit" class="btn" value="Ingresar">
 
-</form>
-<?php
-// put your code here
-?>
+
 </body>
 </html>

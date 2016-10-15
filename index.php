@@ -23,11 +23,14 @@ and open the template in the editor.
 
     </head>
     <body>
-    <nav class="blue darken-1">
+    <nav class="black darken-1">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">ORACULO</a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="#">#</a></li>
+            <a href="#" class="brand-logo left">ORACULO</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="index.php">Inicio</a></li>
+                <li><a href="#">Nuestros Servicios</a></li>
+                <li><a href="#">Quienes Somos</a></li>
+                <li><a href="#">Contacto</a></li>
             </ul>
         </div>
     </nav>
