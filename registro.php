@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<?php
-include "inicializar.php";
-
-?>
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -11,7 +7,9 @@ and open the template in the editor.
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?=(new Nucleo())->titulo?></title>
+    <title>ORACULO</title>
+    <!-- iconos especiales de materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Estilos principal -->
     <link rel="stylesheet" href="main.css">
@@ -24,6 +22,8 @@ and open the template in the editor.
 
 </head>
 <body>
+
+<!-- Navbar -->
 <nav class="black darken-1">
     <div class="nav-wrapper">
         <a href="#" class="brand-logo left">ORACULO</a>
@@ -35,18 +35,35 @@ and open the template in the editor.
         </ul>
     </div>
 </nav>
-<h4>Bienvenido nuevo usuario</h4>
-<form action="perfil.php" method="post" class="formulario">
-    <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo">
-    <input type="text" id="cuenta" placeholder="Nombre de la cuenta (debe ser unico)">
-    <input type="email" id="email" placeholder="Email@nuevo.ya">
-    <input type="password" id="clave" placeholder="Clave">
-    <input type="password" id="verificar-clave" placeholder="Repetir clave">
-    <input type="submit" class="btn" value="Ingresar">
 
-</form>
-<?php
-// put your code here
-?>
+<!-- content -->
+<div class="content">
+    <div class="row">
+        <div class="col s6 offset-s3">
+            <div class="card-panel">
+
+                <form action="registro.php" method="post">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo">
+                    <input type="text" id="cuenta" name="cuenta" placeholder="Nombre de la cuenta (debe ser unico)">
+                    <input type="email" id="email" name="mail" placeholder="Email@nuevo.ya">
+                    <input type="password" id="clave" name="clave" placeholder="Clave">
+
+                    <i class="material-icons">error</i>
+                    <input type="password" id="verificar-clave" name="rep-clave" placeholder="Repetir clave">
+                    <input type="submit" class="btn" value="Ingresar">
+                    <br>
+                    Usuario - clave:
+                    Admin - admin //
+                    usuarioPrueba - 1234
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- scripts -->
+<script src="validar.js"></script>
+
 </body>
 </html>
