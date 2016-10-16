@@ -6,6 +6,12 @@ include_once 'PDOConfig.php';
  * Clase Login
  * Abstrae el manejo de sesiones y validación de usuario.
  *
+ * MODIFICADA 16/10/2016
+ *
+ * PARA QUE COINCIDA CON EL PROYECTO ORACULO PARA EL TP FINAL 2016
+ *
+ *
+ *
  */
 class Login {
 
@@ -67,8 +73,8 @@ class Login {
              * comentar esta linea para ver ejemplo inyección de código sql.
              */
             $nombreUsuario = $this->BASEDATOS->filtrar($nombreUsuario);
-            $sql = "select * from Usuario, Rol
-                where Usuario.idRol=Rol.idRol and Usuario='$nombreUsuario'";
+            $sql = "select * from usuarios, rol
+                where usuario.idRol=rol.idRol and nombre='$nombreUsuario'";
             if (!$resultado = $this->BASEDATOS->query($sql)) {
                 $this->ERROR = 'Error Consulta Base de datos';
                 return false;
@@ -77,26 +83,17 @@ class Login {
                     $this->ERROR = 'Usuario erroneo';
                     return false;
                 } else {
-                    if ($row['Contrasenia'] != $Clave) {
+                    if ($row['clave'] != $Clave) {
                         $this->ERROR = 'Clave erronea';
                         return false;
                     } else {
                         $_SESSION['activa'] = true;
-                        $_SESSION['Descripcion'] = $row['Descripcion'];
+                        //$_SESSION['Descripcion'] = $row['Descripcion'];
                         $_SESSION['Rol'] = $row['idRol'];
                         $_SESSION['idUsuario'] = $row['idUsuario'];
-                        $_SESSION['Usuario'] = $row['Usuario'];
-                        $_SESSION['Tiempo'] = time();
-                        $_SESSION['Perfil'] = $row['foto_perfil'];
-                        if ($row['Descripcion'] == 'Doctor') {
-                            $this->datosDoctor($row['idUsuario']);
-                        } elseif($row['Descripcion'] == 'Secretaria') {
-                            $this->datosSecre($row['idUsuario']);
-                        }
-                        else{
-                            echo $this->ERROR = 'No estoy';
-                        }
-
+                        $_SESSION['Usuario'] = $row['nombre'];
+                        //$_SESSION['Tiempo'] = time();
+                        //$_SESSION['Perfil'] = $row['foto_perfil'];
                         return true;
                     }
                 }
@@ -182,48 +179,6 @@ class Login {
         }
     }
 
-    private function datosDoctor($idUsuario) {
-        $sql = "Select d.*, e.Descripcion from Doctor d, Especialidad e where idDoctor = " .$idUsuario . " AND d.idEspecialidad = e.idEspecialidad";
-        if (!$resultado = $this->BASEDATOS->query($sql)) {
-            $this->ERROR = 'Error Consulta Base de datos';
-            return false;
-        } else {
-            if (!($row = $resultado->fetch(PDO::FETCH_ASSOC))) {
-                $this->ERROR = 'No tienes datos';
-                return false;
-            } else {
-                $_SESSION['Nombre'] = $row['Nombre'];
-                $_SESSION['Apellido'] = $row['Apellido'];
-                $_SESSION['Direccion'] = $row['Direccion'];
-                $_SESSION['DNI'] = $row['DNI'];
-                $_SESSION['Matricula'] = $row['Matricula'];
-                $_SESSION['Especialidad'] = $row['Descripcion'];
-                $_SESSION['Sueldo'] = $row['Sueldo'];
-            }
-        }
-    }
-    private function datosSecre($idUsuario) {
-        $this->BASEDATOS = new PDOConfig();
-        $sql = "Select * from Secretaria where idSecre = " . $idUsuario;
-        if (!$resultado = $this->BASEDATOS->query($sql)) {
-            $this->ERROR = 'Error Consulta Base de datos';
-            return false;
-        } else {
-            if (!($row = $resultado->fetch(PDO::FETCH_ASSOC))) {
-                $this->ERROR = 'No tienes datos';
-                return false;
-            } else {
-                $_SESSION['Nombre'] = $row['Nombre'];
-                $_SESSION['Apellido'] = $row['Apellido'];
-                $_SESSION['Direccion'] = $row['Direccion'];
-                $_SESSION['DNI'] = $row['DNI'];
-                $_SESSION['CUIL'] = $row['CUIL'];
-                $_SESSION['Correo'] = $row['Correo'];
-                $_SESSION['Telefono'] = $row['Telefono'];
-            }
-        }
-    }
-
     public function getIdUsuario() {
         if ($this->activa()) {
             if (isset($_SESSION['idUsuario'])) {
@@ -238,33 +193,7 @@ class Login {
         }
     }
 
-    public function getTime() {
-        if ($this->activa()) {
-            if (isset($_SESSION['Tiempo'])) {
-                return $_SESSION['Tiempo'];
-            } else {
-                $this->ERROR = 'No está seteado el Tiempo';
-                return false;
-            }
-        } else {
-            $this->ERROR = 'No tiene una sección activa';
-            return false;
-        }
-    }
 
-    public function getDescripcion() {
-        if ($this->activa()) {
-            if (isset($_SESSION['Descripcion'])) {
-                return $_SESSION['Descripcion'];
-            } else {
-                $this->ERROR = 'No está seteado la de descripcion';
-                return false;
-            }
-        } else {
-            $this->ERROR = 'No tiene una sección activa';
-            return false;
-        }
-    }
 
 }
 

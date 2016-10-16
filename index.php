@@ -1,3 +1,19 @@
+<?php
+include "libs/PDOConfig.php";
+include "libs/Login.php";
+
+$post = filter_input_array(INPUT_POST);
+if(isset($post) && is_array($post)){
+    //session_start();
+    $nombre = $post['nombre'];
+    $clave = $post['clave'];
+    $oLogin = new Login();
+    $oLogin->iniciar($nombre, $clave);
+    $oLogin->activa();
+
+}
+
+?>
 <!DOCTYPE html>
 
 <!--
@@ -58,9 +74,9 @@ $json = json_decode(file_get_contents($url), true);
                 <form action="index.php" method="post">
                     <i class="material-icons">perm_identity</i>
 
-                    <input type="text" id="nombre" placeholder="Nombre de usuario">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario">
                     <i class="material-icons">vpn_key</i>
-                    <input type="text" id="clave" placeholder="Clave">
+                    <input type="text" id="clave" name="clave" placeholder="Clave">
                     <input type="submit" class="btn waves-effect waves-light" value="Iniciar sesion"
                            alt="Iniciar sesion, asegurece de haber ingresado su nombre y contraseña en los campos previos">
                 </form>

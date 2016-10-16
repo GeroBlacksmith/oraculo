@@ -42,7 +42,7 @@ and open the template in the editor.
         <div class="col s6 offset-s3">
             <div class="card-panel">
 
-                <form action="registro.php" method="post">
+                <form action="registro.php" method="post" onsubmit="validarTodo()">
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo">
                     <input type="text" id="cuenta" name="cuenta" placeholder="Nombre de la cuenta (debe ser unico)">
                     <input type="email" id="email" name="mail" placeholder="Email@nuevo.ya">
