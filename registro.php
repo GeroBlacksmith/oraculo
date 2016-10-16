@@ -41,14 +41,12 @@ and open the template in the editor.
     <div class="row">
         <div class="col s6 offset-s3">
             <div class="card-panel">
-
-                <form action="registro.php" method="post" onsubmit="validarTodo()">
+                <i class="material-icons">error</i>
+                <form action="ejecutar-registro.php" method="post" onsubmit="validarTodo()">
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo">
                     <input type="text" id="cuenta" name="cuenta" placeholder="Nombre de la cuenta (debe ser unico)">
                     <input type="email" id="email" name="mail" placeholder="Email@nuevo.ya">
                     <input type="password" id="clave" name="clave" placeholder="Clave">
-
-                    <i class="material-icons">error</i>
                     <input type="password" id="verificar-clave" name="rep-clave" placeholder="Repetir clave">
                     <input type="submit" class="btn" value="Ingresar">
                     <br>

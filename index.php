@@ -3,13 +3,16 @@ include "libs/PDOConfig.php";
 include "libs/Login.php";
 
 $post = filter_input_array(INPUT_POST);
-if(isset($post) && is_array($post)){
+if (isset($post) && is_array($post)) {
     //session_start();
     $nombre = $post['nombre'];
     $clave = $post['clave'];
     $oLogin = new Login();
     $oLogin->iniciar($nombre, $clave);
-    $oLogin->activa();
+    $oLogin->validar();
+    if ($oLogin->activa()) {
+        header("location:perfil.php");
+    }
 
 }
 
@@ -76,7 +79,7 @@ $json = json_decode(file_get_contents($url), true);
 
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario">
                     <i class="material-icons">vpn_key</i>
-                    <input type="text" id="clave" name="clave" placeholder="Clave">
+                    <input type="password" id="clave" name="clave" placeholder="Clave">
                     <input type="submit" class="btn waves-effect waves-light" value="Iniciar sesion"
                            alt="Iniciar sesion, asegurece de haber ingresado su nombre y contraseña en los campos previos">
                 </form>
@@ -116,5 +119,6 @@ $json = json_decode(file_get_contents($url), true);
         </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <?php
-include "inicializar.php";
+include ("libs/PDOConfig.php");
+include ("libs/Login.php");
+$oLogin = new Login();
+
+$activa=false;
+if($oLogin->activa()){
+
+    $activa=true;
+}else{
+    header("location:index.php");
+}
+
 ?>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -10,7 +21,7 @@ and open the template in the editor.
 <html>
 <head>
     <meta charset="UTF-8">
-    <title><?=(new Nucleo())->titulo?></title>
+    <title>Oraculo</title>
 
     <!-- Estilos principal -->
     <link rel="stylesheet" href="main.css">
@@ -31,6 +42,7 @@ and open the template in the editor.
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>
+            <li><a href="cerrar.php">Cerrar sesion</a></li>
         </ul>
     </div>
 </nav>

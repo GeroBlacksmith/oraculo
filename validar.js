@@ -84,6 +84,7 @@ function validarTodo() {
     } else if(!verificarCuenta()){
         return false;
     }else{
+        alert("paso todas las pruebas")
         return true;
     }
 }

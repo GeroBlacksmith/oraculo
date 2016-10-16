@@ -74,7 +74,7 @@ class Login {
              */
             $nombreUsuario = $this->BASEDATOS->filtrar($nombreUsuario);
             $sql = "select * from usuarios, rol
-                where usuario.idRol=rol.idRol and nombre='$nombreUsuario'";
+                where usuarios.idRol=rol.idRol and usuarios.cuenta='$nombreUsuario'";
             if (!$resultado = $this->BASEDATOS->query($sql)) {
                 $this->ERROR = 'Error Consulta Base de datos';
                 return false;
@@ -90,8 +90,8 @@ class Login {
                         $_SESSION['activa'] = true;
                         //$_SESSION['Descripcion'] = $row['Descripcion'];
                         $_SESSION['Rol'] = $row['idRol'];
-                        $_SESSION['idUsuario'] = $row['idUsuario'];
-                        $_SESSION['Usuario'] = $row['nombre'];
+                        $_SESSION['idUsuario'] = $row['idUsuarios'];
+                        $_SESSION['Usuario'] = $row['cuenta'];
                         //$_SESSION['Tiempo'] = time();
                         //$_SESSION['Perfil'] = $row['foto_perfil'];
                         return true;
