@@ -55,7 +55,7 @@ $json = json_decode(file_get_contents($url), true);
         <div class="col s4">
             <div class="card-panel">
 
-                <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+                <form action="index.php" method="post">
                     <i class="material-icons">perm_identity</i>
 
                     <input type="text" id="nombre" placeholder="Nombre de usuario">
