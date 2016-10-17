@@ -40,6 +40,8 @@ and open the template in the editor.
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
+    <!-- Jquery -->
+    <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -75,11 +77,16 @@ $json = json_decode(file_get_contents($url), true);
             <div class="card-panel">
 
                 <form action="index.php" method="post">
-                    <i class="material-icons">perm_identity</i>
+                    <div class="input-field">
+                        <i class="material-icons prefix">perm_identity</i>
+                        <input type="text" id="nombre" name="nombre" class="validate" placeholder="Cuenta">
 
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario">
-                    <i class="material-icons">vpn_key</i>
-                    <input type="password" id="clave" name="clave" placeholder="Clave">
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input type="password" id="clave" name="clave" class="validate" placeholder="Clave">
+
+                    </div>
                     <input type="submit" class="btn waves-effect waves-light" value="Iniciar sesion"
                            alt="Iniciar sesion, asegurece de haber ingresado su nombre y contraseña en los campos previos">
                 </form>
