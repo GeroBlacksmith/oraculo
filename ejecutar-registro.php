@@ -15,8 +15,11 @@ $nombre=$post['nombre'];
 $cuenta=$post['cuenta'];
 $mail=$post['mail'];
 $clave=md5($post['clave']);
+if(!($nombre=="" || $cuenta =="" || $mail == "" || $clave == "")){
+    $sql = "INSERT INTO usuarios(idRol, nombre, cuenta, correo, clave) VALUES ($idRol, \"$nombre\",\"$cuenta\",\"$mail\",\"$clave\");";
+}
 
-$sql = "INSERT INTO usuarios(idRol, nombre, cuenta, correo, clave) VALUES ($idRol, \"$nombre\",\"$cuenta\",\"$mail\",\"$clave\");";
+
 
 $db->query($sql);
 header("location:index.php");

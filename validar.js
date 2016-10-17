@@ -2,10 +2,11 @@
  * Created by Gero on 16/10/2016.
  */
 function verificarCuenta() {
+    var bandera=false;
     $.ajax({
         url: "select1.php",
         success: function (result) {
-            var bandera = true;
+
             var json = JSON.parse(result);
             for (cuenta in json.cuenta) {
                 if (a == json.cuenta[cuenta]) {
@@ -13,23 +14,45 @@ function verificarCuenta() {
                 }
             }
             if (bandera) {
-                alert("Ninguna cuenta se llama " + a);
-                return true;
+                //alert("Ninguna cuenta se llama " + a);
+                bandera= true;
             } else {
-                alert("Ya hay una cuenta con ese nombre, usa otro");
-                return false
+                //alert("Ya hay una cuenta con ese nombre, usa otro");
+                bandera= false
             }
         }
     });
+    return bandera;
 }
 /**
  * Created by Gero on 16/10/2016.
  */
 $(document).ready(function () {
+
     $('#cuenta').focusout(function () {
         var a = $('#cuenta').val();
+        var bandera = true;
         vacio(a);
-        verificarCuenta();
+        $.ajax({
+            url: "select1.php",
+            success: function (result) {
+
+                var json = JSON.parse(result);
+                for (cuenta in json.cuenta) {
+                    if (a == json.cuenta[cuenta]) {
+                        bandera = false;
+                    }
+                }
+                if (bandera) {
+                    //alert("Ninguna cuenta se llama " + a);
+                    bandera=true;
+                } else {
+                    //alert("Ya hay una cuenta con ese nombre, usa otro");
+                    bandera=false
+                }
+            }
+        });
+        return bandera;
     });
     $('#verificar-clave').keyup(function () {
             validarClave();
@@ -47,11 +70,11 @@ function vacio(q) {
         }
     }
     if (bandera) {
-        alert("ok");
+        //alert("ok");
         return bandera;
     } else {
 
-        alert("No puede contener espacio")
+        //alert("No puede contener espacio")
 
         return bandera;
     }
@@ -61,7 +84,7 @@ function validarClave() {
     var clave1 = $("#clave").val();
     var clave2 = $("#verificar-clave").val();
     if (clave1 == clave2) {
-        alert("Ok");
+        //alert("Ok");
     }
 }
 
@@ -70,21 +93,22 @@ function validarTodo() {
     var bandera = false;
     //ningun campo este vacio
     if (
-        $("#nombre").val() != "" ||
-        $("#email").val() != "" ||
-        $("#cuenta").val() != "" ||
-        $("#clave").val() != "" ||
-        $("#verificar-clave").val() != ""
+        $("#nombre").val() == "" ||
+        $("#email").val() == "" ||
+        $("#cuenta").val() == "" ||
+        $("#clave").val() == "" ||
+        $("#verificar-clave").val() == ""
     ) {
-        alert("No pueden haber campos vacios");
-        return false;
+        //alert("No pueden haber campos vacios");
+        bandera= false;
     }else if (!validarClave()) {
-        alert("No coinciden las contraseñas");
-        return false;
+        //alert("No coinciden las contraseñas");
+        bandera=false;
     } else if(!verificarCuenta()){
-        return false;
+        bandera=false;
     }else{
-        alert("paso todas las pruebas")
-        return true;
+        //alert("paso todas las pruebas")
+        bandera=true;
     }
+    return bandera;
 }
