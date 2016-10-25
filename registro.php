@@ -20,6 +20,8 @@ and open the template in the editor.
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
+    <!-- Jquery -->
+    <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -42,14 +44,17 @@ and open the template in the editor.
         <div class="col s6 offset-s3">
             <div class="card-panel">
 
-                <form action="registro.php" method="post">
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo">
-                    <input type="text" id="cuenta" name="cuenta" placeholder="Nombre de la cuenta (debe ser unico)">
-                    <input type="email" id="email" name="mail" placeholder="Email@nuevo.ya">
-                    <input type="password" id="clave" name="clave" placeholder="Clave">
-
-                    <i class="material-icons">error</i>
-                    <input type="password" id="verificar-clave" name="rep-clave" placeholder="Repetir clave">
+                <form action="ejecutar-registro.php" method="post" onsubmit="return validarTodo()">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre Completo" onkeydown="limpiar()"><i class="material-icons" id="i_error_nombre">error</i>
+                    <div id="div_error_nombre"></div>
+                    <input type="text" id="cuenta" name="cuenta" placeholder="Nombre de la cuenta (debe ser unico)" onkeydown="limpiar()"><i class="material-icons" id="i_error_cuenta">error</i>
+                    <div id="div_error_cuenta"></div>
+                    <input type="email" id="email" name="mail" placeholder="Email@nuevo.ya" onkeydown="limpiar()"><i class="material-icons" id="i_error_mail">error</i>
+                    <div id="div_error_email"></div>
+                    <input type="password" id="clave" name="clave" placeholder="Clave" onkeydown="limpiar()"><i class="material-icons" id="i_error_clave">error</i>
+                    <div id="div_error_clave"></div>
+                    <input type="password" id="verificar-clave" name="rep-clave" placeholder="Repetir clave" onkeydown="limpiar()"><i class="material-icons" id="i_error_repetir_clave">error</i>
+                    <div id="div_error_repetir_clave"></div>
                     <input type="submit" class="btn" value="Ingresar">
                     <br>
                     Usuario - clave:

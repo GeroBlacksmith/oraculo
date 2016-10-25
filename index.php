@@ -1,3 +1,24 @@
+<?php
+include "libs/PDOConfig.php";
+include "libs/Login.php";
+
+$post = filter_input_array(INPUT_POST);
+$oLogin = new Login();
+
+if (isset($post) && is_array($post)) {
+    //session_start();
+    $nombre = $post['nombre'];
+    $clave = $post['clave'];
+
+    $oLogin->iniciar($nombre, $clave);
+    $oLogin->validar();
+    if ($oLogin->activa()) {
+        header("location:perfil.php");
+    }
+
+}
+
+?>
 <!DOCTYPE html>
 
 <!--
@@ -21,6 +42,8 @@ and open the template in the editor.
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
+    <!-- Jquery -->
+    <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -30,6 +53,9 @@ and open the template in the editor.
         <a href="#" class="brand-logo left">ORACULO</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="index.php">Inicio</a></li>
+            <?php if($oLogin->activa()):?>
+                <li><a href="perfil.php"><?= $oLogin->getNombreUsuario()?></a></li>
+            <?php endif; ?>
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>
@@ -46,21 +72,45 @@ and open the template in the editor.
  * Time: 07:57 AM
  */
 $api_key = "db47f4964efc61e282950fb851d1b7b0";
-$url = "http://api.openweathermap.org/data/2.5/weather?q=neuquen,Argentina&APPID=$api_key";
+$url = "http://api.openweathermap.org/data/2.5/weather?q=neuquen,Argentina&units=metric&APPID=$api_key";
 $json = json_decode(file_get_contents($url), true);
+$img="img/weather_cloud.png";
+//$img="http://openweathermap.org/img/w/"+$json["weather"][0]["icon"]+".png";
+if($json['weather'][0]['main']=="Clear"){
+    $img="img/weather_sun.png";
+}
+if($json['weather'][0]['main']=="Rain"){
+    $img="img/weather_rain.png";
+}
+if($json['weather'][0]['main']=="Snow"){
+    $img="img/weather_snow.png";
+}
+if($json['weather'][0]['main']=="Cloud"){
+    $img="img/weather_sun.png";
+}
+if($json['weather'][0]['main']=="Clear"){
+    $img="img/weather_cloud.png";
+}
 ?>
 
 <div class="content">
+
     <div class="row">
+    <?php if(!$oLogin->activa()):?>
         <div class="col s4">
             <div class="card-panel">
 
-                <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-                    <i class="material-icons">perm_identity</i>
+                <form action="index.php" method="post">
+                    <div class="input-field">
+                        <i class="material-icons prefix">perm_identity</i>
+                        <input type="text" id="nombre" name="nombre" class="validate" placeholder="Cuenta">
 
-                    <input type="text" id="nombre" placeholder="Nombre de usuario">
-                    <i class="material-icons">vpn_key</i>
-                    <input type="text" id="clave" placeholder="Clave">
+                    </div>
+                    <div class="input-field">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input type="password" id="clave" name="clave" class="validate" placeholder="Clave">
+
+                    </div>
                     <input type="submit" class="btn waves-effect waves-light" value="Iniciar sesion"
                            alt="Iniciar sesion, asegurece de haber ingresado su nombre y contraseña en los campos previos">
                 </form>
@@ -73,8 +123,12 @@ $json = json_decode(file_get_contents($url), true);
                 usuarioPrueba - 1234
             </div>
         </div>
-
+        <?php endif?>
+        <?php if(!$oLogin->activa()):?>
         <div class="col s8">
+            <?php else:?>
+            <div class="col s12">
+            <?php endif?>
             <div class="card-panel hoverable">
 
                 <div class="row">
@@ -84,8 +138,8 @@ $json = json_decode(file_get_contents($url), true);
 
                     <div class="col s6">
                         <div>
-                            imagen de clima principal<br>
-                            temperatura grados c o f <?= $json['main']['temp'] ?><br>
+                            <img src="<?=$img?>"><br>
+                            t°:<?= $json['main']['temp'] ?>°C<br>
                         </div>
                     </div>
                     <div class="col s6">
@@ -100,5 +154,6 @@ $json = json_decode(file_get_contents($url), true);
         </div>
     </div>
 </div>
+
 </body>
 </html>
