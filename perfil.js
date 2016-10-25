@@ -1,6 +1,18 @@
 /**
  * Created by Gero on 25/10/2016.
  */
+$(document).ready(function () {
+    var idUsuario = parseInt($(".idusuario").html());
+    cargar_select_zonas();
+    cargar_zonas_asociadas(idUsuario);
+    $('#boton-agregar-zona').click(function () {
+
+        var idZona  = parseInt($("#zona_select :selected").val());
+        post_en_asociar_zona(idZona, idUsuario);
+
+    });
+
+});
 function post_en_asociar_zona(idzona, idusuario) {
     $.post(
         "zonas.php",
@@ -9,12 +21,13 @@ function post_en_asociar_zona(idzona, idusuario) {
             'idusuario': idusuario
         },
         function (data, status) {
-            if (status == 200) {
-                console.log("todo bien");
-            } else {
-                console.log("No se agrego asociacion");
+            if(status=="success"){
+                cargar_zonas_asociadas(idusuario);
+             //   console.log(data);
+             //   console.log(status);
             }
-        })
+        }
+    )
 }
 function obtener_idzona(descripcion) {
     $.post(
@@ -23,9 +36,9 @@ function obtener_idzona(descripcion) {
             'descripcion': descripcion
         },
         function (data, status) {
-            if(status==200){
+            if (status == 200) {
                 console.log(data);
-            }else{
+            } else {
                 console.log("No se obtuvo idZona");
             }
         });
@@ -41,5 +54,12 @@ function cargar_select_zonas() {
         }
 
 
+    });
+}
+function cargar_zonas_asociadas(idusuario){
+     url='asociar.php?idusuario='+idusuario;
+    $.get(url, function(data,status){
+        console.log(data);
+        $(".zonas_elegidas").html(data);
     });
 }

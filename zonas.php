@@ -33,12 +33,14 @@ if ($_POST) {
             $error=   "No entro post idusuario";
         }
 
-        $sql = "INSERT INTO asociarzona(idzona, idusuario)VALUES ($idzona, $idusuario);";
+        $sql = "INSERT INTO asociarzona(idZona, idUsuarios)VALUES ($idzona, $idusuario);";
+
         $db->query($sql);
-        echo "Ok";
+        $db = null;
+        echo $sql;
 
     }
-    $db = null;
+
     if(isset($error)){
         echo $error;
     }

@@ -40,6 +40,9 @@ and open the template in the editor.
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div class="idusuario"><?=$_SESSION['idUsuario']?></div>
+
 <nav class="black darken-1">
     <div class="nav-wrapper">
         <a href="#" class="brand-logo left">ORACULO</a>
@@ -61,11 +64,13 @@ and open the template in the editor.
             <div class="card-panel">
                 Usuario: <?= $nombre ?><br>
                 Zonas elegidas:<br>
+                <div class="zonas_elegidas"></div>
                 Agregar una zona para monitorear:<br>
                 <!-- carga dinamica de las zonas -->
                 <div id="resultado-zonas"></div>
                 <a class="waves-effect waves-light btn green darken-1" id="boton-agregar-zona" href="#"><i
                         class="material-icons right">add</i>Agregar zona</a>
+
             </div>
         </div>
         <div class="col s4">
@@ -82,6 +87,7 @@ and open the template in the editor.
                     <li class="collection-item">Alvin</li>
                     <li class="collection-item">Alvin</li>
                 </ul>
+
             </div>
         </div>
         <div class="col s4">
@@ -103,24 +109,7 @@ and open the template in the editor.
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        cargar_select_zonas();
 
-        $('#boton-agregar-zona').click(function () {
-            var idUsuario = <?= $_SESSION['idUsuario']?>;
-            var idZona  = $("#zona_select :selected").val();
-            var idz=0;
-            if(idZona[2]=='-'){
-                var idz=idZona[0];
-            }
-            console.log(idz);
-
-            post_en_asociar_zona(idz, idUsuario);
-        });
-
-    });
-</script>
 <script src="perfil.js"></script>
 </body>
 </html>
