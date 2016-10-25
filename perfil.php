@@ -36,7 +36,8 @@ and open the template in the editor.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
     <!-- Jquery -->
-    <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="black darken-1">
@@ -44,6 +45,9 @@ and open the template in the editor.
         <a href="#" class="brand-logo left">ORACULO</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="index.php">Inicio</a></li>
+            <?php if ($oLogin->activa()): ?>
+                <li><a href="perfil.php"><?= $oLogin->getNombreUsuario() ?></a></li>
+            <?php endif; ?>
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>
@@ -59,11 +63,9 @@ and open the template in the editor.
                 Zonas elegidas:<br>
                 Agregar una zona para monitorear:<br>
                 <!-- carga dinamica de las zonas -->
-                <select class="browser-default">
-                    <option>Neuquen</option>
-                    <option>Allen</option>
-                </select>
-                <a class="waves-effect waves-light btn green darken-1"><i class="material-icons right">add</i>Agregar zona</a>
+                <div id="resultado-zonas"></div>
+                <a class="waves-effect waves-light btn green darken-1" id="boton-agregar-zona" href="#"><i
+                        class="material-icons right">add</i>Agregar zona</a>
             </div>
         </div>
         <div class="col s4">
@@ -101,7 +103,24 @@ and open the template in the editor.
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        cargar_select_zonas();
 
+        $('#boton-agregar-zona').click(function () {
+            var idUsuario = <?= $_SESSION['idUsuario']?>;
+            var idZona  = $("#zona_select :selected").val();
+            var idz=0;
+            if(idZona[2]=='-'){
+                var idz=idZona[0];
+            }
+            console.log(idz);
 
+            post_en_asociar_zona(idz, idUsuario);
+        });
+
+    });
+</script>
+<script src="perfil.js"></script>
 </body>
 </html>

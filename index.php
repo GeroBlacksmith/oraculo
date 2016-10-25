@@ -53,6 +53,9 @@ and open the template in the editor.
         <a href="#" class="brand-logo left">ORACULO</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="index.php">Inicio</a></li>
+            <?php if($oLogin->activa()):?>
+                <li><a href="perfil.php"><?= $oLogin->getNombreUsuario()?></a></li>
+            <?php endif; ?>
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>
