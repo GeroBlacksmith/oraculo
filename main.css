@@ -1,7 +1,8 @@
+
 html{
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
-body{
+.content{
     background-color: aliceblue;
 }
 .formulario{
@@ -44,4 +45,12 @@ i.material-icons{
 }
 .idusuario{
     display: none;
+}
+.menu{
+    height: 100%;
+    background-color: blue;
+}
+.contenido{
+    height: 100%;
+    background-color: green;
 }

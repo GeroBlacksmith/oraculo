@@ -21,6 +21,7 @@ if($result){
         $result=$db->query($sql);
         $arreglo=$result->fetchAll(PDO::FETCH_ASSOC);
         $html.=$arreglo[0]['descripcion'];
+        $html.="<button class=' btn right'>Borrar</button>";
         $html.="</li>";
     }
     echo $html;
