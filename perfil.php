@@ -9,6 +9,10 @@ if ($oLogin->activa()) {
 
     $activa = true;
     $nombre = $_SESSION['nombreUsuario'];
+    $rol = $_SESSION['Rol'];
+    if($rol == 1){
+        header("location:admin.php");
+    }
 } else {
     header("location:index.php");
 }
@@ -51,6 +55,7 @@ and open the template in the editor.
             <?php if ($oLogin->activa()): ?>
                 <li><a href="perfil.php"><?= $oLogin->getNombreUsuario() ?></a></li>
             <?php endif; ?>
+            <li><a href="cerrar.php">Cerrar sesion</a></li>
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>

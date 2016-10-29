@@ -55,7 +55,9 @@ and open the template in the editor.
             <li><a href="index.php">Inicio</a></li>
             <?php if($oLogin->activa()):?>
                 <li><a href="perfil.php"><?= $oLogin->getNombreUsuario()?></a></li>
+                <li><a href="cerrar.php">Cerrar sesion</a></li>
             <?php endif; ?>
+
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>

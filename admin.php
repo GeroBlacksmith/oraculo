@@ -85,7 +85,6 @@ if ($oLogin->activa()) {
                     <li><a href="index.php">Inicio</a></li>
                     <li><a href="#">Usuarios</a></li>
                     <li><a href="#">Alertas</a></li>
-                    <li><a href="#">Alertas</a></li>
                     <li><a href="#">Colaboraciones</a></li>
                     <li><a href="cerrar.php">Cerrar sesion</a></li>
                 </ul>
@@ -127,16 +126,40 @@ if ($oLogin->activa()) {
         </div>
         <div class="row" id="verusuarios">
             <div class="row">
-                <div class="col s8">Usuarios</div>
+                <div class="col s8"><h4>Usuarios</h4></div>
 
             </div>
             <div class="row" >
                 <div class="col s4">Nombre</div>
                 <div class="col s4">
-                    <button class="btn">Colaboraciones</button>
+                    Zona
                 </div>
-
+                <div class="col s4">
+                    ultima colaboracion
+                </div>
             </div>
+            <?php
+
+            $bd = new PDOConfig();
+            $sql="SELECT usuarios.nombre, zona.descripcion
+             FROM usuarios JOIN zona LEFT JOIN asociarzona ON ( asociarzona.idUsuarios=usuarios.idUsuarios)
+            WHERE asociarzona.idZona=zona.idZona;";
+            //$sql = "SELECT * FROM usuarios WHERE idRol=2";
+            $resultado=$bd->query($sql);
+            $arreglo =$resultado->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($arreglo as $value){
+                echo "<div class='row'>";
+
+                echo "    <div class='col s4'><a href='#'>";
+                echo $value['nombre'];
+                echo "    </a></div>";
+                echo "    <div class='col s4'><a href='#'>";
+                echo $value['descripcion'];
+                echo "    </a></div>";
+                echo "</div>";
+            }
+            $bd = null;
+?>
         </div>
     </div>
 
