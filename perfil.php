@@ -30,6 +30,8 @@ and open the template in the editor.
     <!-- Iconos especiales de materialize -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
+
     <!-- Estilos principal -->
     <link rel="stylesheet" href="main.css">
 
@@ -73,6 +75,7 @@ and open the template in the editor.
                 Agregar una zona para monitorear:<br>
                 <!-- carga dinamica de las zonas -->
                 <div id="resultado-zonas"></div>
+
                 <a class="waves-effect waves-light btn green darken-1" id="boton-agregar-zona" href="#"><i
                         class="material-icons right">add</i>Agregar zona</a>
 
@@ -87,10 +90,7 @@ and open the template in the editor.
                 </div>
                 <ul class="collection with-header">
                     <li class="collection-header"><h4>Alertas recientes</h4></li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
+
                 </ul>
 
             </div>
@@ -105,10 +105,7 @@ and open the template in the editor.
                 </div>
                 <ul class="collection with-header">
                     <li class="collection-header"><h4>Contribuciones</h4></li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
-                    <li class="collection-item">Alvin</li>
+
                 </ul>
             </div>
         </div>

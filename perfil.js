@@ -12,6 +12,7 @@ $(document).ready(function () {
 
     });
 
+
 });
 function post_en_asociar_zona(idzona, idusuario) {
     $.post(

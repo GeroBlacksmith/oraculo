@@ -21,13 +21,12 @@ if($result){
         $result=$db->query($sql);
         $arreglo=$result->fetchAll(PDO::FETCH_ASSOC);
         $html.=$arreglo[0]['descripcion'];
-        $html.="<button class=' btn right'><i
-                        class=\"material-icons right\">delete</i></button>";
-        $html.="<button class=' btn right'><i
-                        class=\"material-icons right\">settings</i></button>";
+        $aux=$arreglo[0]['descripcion'];
+        $html.="<button class='btn right borrar_zonas' id='borrar_$aux'>X</button>";
+        $html.="<button class='btn right configurar_zonas' id='configurar_alerta_$aux'>O</button>";
         $html.="</li>";
     }
-    $html.="</div></ul>";
+    $html.="</ul></div>";
     echo $html;
 }else{
     echo "Ninguna zona asociada todavia.";
