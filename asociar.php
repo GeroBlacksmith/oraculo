@@ -22,7 +22,7 @@ if($result){
         $arreglo=$result->fetchAll(PDO::FETCH_ASSOC);
         $html.=$arreglo[0]['descripcion'];
         $aux=$arreglo[0]['descripcion'];
-        $html.="<button class='btn right borrar_zonas' id='borrar_$aux'>X</button>";
+        $html.="<button class='btn right borrar_zonas' id='borrar_$aux' onclick='borrar(this)'>X</button>";
         $html.="<button class='btn right configurar_zonas' id='configurar_alerta_$aux'>O</button>";
         $html.="</li>";
     }

@@ -13,3 +13,4 @@ $db = new PDOConfig();
 $sql = "INSERT INTO zona(descripcion, latitud, longitud)VALUES(\"$descripcion\",\"$latitud\",\"$longitud\");";
 $db->query($sql);
 $db=null;
+header("location:admin.php");

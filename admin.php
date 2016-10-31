@@ -9,10 +9,8 @@
 include("libs/PDOConfig.php");
 include("libs/Login.php");
 $oLogin = new Login();
-
 $activa = false;
 if ($oLogin->activa()) {
-
     $activa = true;
     $nombre = $_SESSION['nombreUsuario'];
 } else {
@@ -138,28 +136,7 @@ if ($oLogin->activa()) {
                     ultima colaboracion
                 </div>
             </div>
-            <?php
-
-            $bd = new PDOConfig();
-            $sql="SELECT usuarios.nombre, zona.descripcion
-             FROM usuarios JOIN zona LEFT JOIN asociarzona ON ( asociarzona.idUsuarios=usuarios.idUsuarios)
-            WHERE asociarzona.idZona=zona.idZona;";
-            //$sql = "SELECT * FROM usuarios WHERE idRol=2";
-            $resultado=$bd->query($sql);
-            $arreglo =$resultado->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($arreglo as $value){
-                echo "<div class='row'>";
-
-                echo "    <div class='col s4'><a href='#'>";
-                echo $value['nombre'];
-                echo "    </a></div>";
-                echo "    <div class='col s4'><a href='#'>";
-                echo $value['descripcion'];
-                echo "    </a></div>";
-                echo "</div>";
-            }
-            $bd = null;
-?>
+            <div id="info-usuarios"></div>
         </div>
     </div>
 

@@ -1,10 +1,12 @@
 /**
  * Created by Gero on 25/10/2016.
  */
+
 $(document).ready(function () {
     var idUsuario = parseInt($(".idusuario").html());
     cargar_select_zonas();
     cargar_zonas_asociadas(idUsuario);
+
     $('#boton-agregar-zona').click(function () {
 
         var idZona  = parseInt($("#zona_select :selected").val());
@@ -57,10 +59,15 @@ function cargar_select_zonas() {
 
     });
 }
+
 function cargar_zonas_asociadas(idusuario){
-     url='asociar.php?idusuario='+idusuario;
+     var url='asociar.php?idusuario='+idusuario;
     $.get(url, function(data,status){
         console.log(data);
         $(".zonas_elegidas").html(data);
     });
+}
+
+function borrar(item){
+console.log(item.id);
 }
