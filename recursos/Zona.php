@@ -6,8 +6,9 @@
  * and open the template in the editor.
  */
 
-class Zona
+class Zona implements Query
 {
+    private $db;
     private $id_zona;
     private $descripcion;
     private $longitud;
@@ -77,20 +78,45 @@ class Zona
         $this->latitud = $latitud;
     }
 
-    function __construct()
+    function __construct(){
+        $db= new PDOConfig();
+        $this->setDB($db);
+    }
+
+    function insertar($dato=null){
+
+        $descripcion=$this->getDescripcion();
+        $latitud =$this->getLatitud();
+        $longitud=$this->getLongitud();
+
+        $sql="INSERT into zona (descripcion, latidud, longitud)WHERE (\"$descripcion\",\"$latitud\",\"$longitud\");";
+
+    }
+    function actualizar($dato=null){
+
+    }
+    function borrar($dato=null){
+
+    }
+
+
+    public function obtener($dato=null)
     {
-
+        // TODO: Implement obtener() method.
     }
-    function insertar(){
 
+    private function getDB()
+    {
+        return $this->db;
     }
-    function actualizar(){
 
+    private function setDB($db)
+    {
+        $this->db=$db;
     }
-    function borrar(){
-
-    }
-    function mostrar(){
-
+    function __destruct()
+    {
+        // TODO: Implement __destruct() method.
+        $this->db=null;
     }
 }

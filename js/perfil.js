@@ -10,6 +10,15 @@ $(document).ready(function () {
     $('#boton-agregar-zona').click(function () {
 
         var idZona  = parseInt($("#zona_select :selected").val());
+
+        function obtener_asociacion(idZona, idUsuario) {
+            $.get("select2.php",function(data,status){
+                console.log(data);
+                console.log(status);
+            });
+        }
+
+        obtener_asociacion(idZona, idUsuario);
         post_en_asociar_zona(idZona, idUsuario);
 
     });
@@ -28,6 +37,8 @@ function post_en_asociar_zona(idzona, idusuario) {
                 cargar_zonas_asociadas(idusuario);
              //   console.log(data);
              //   console.log(status);
+            }else{
+                console.log("Algo salio mal");
             }
         }
     )
@@ -39,8 +50,9 @@ function obtener_idzona(descripcion) {
             'descripcion': descripcion
         },
         function (data, status) {
-            if (status == 200) {
+            if (status == "success") {
                 console.log(data);
+                return data;
             } else {
                 console.log("No se obtuvo idZona");
             }
@@ -69,5 +81,18 @@ function cargar_zonas_asociadas(idusuario){
 }
 
 function borrar(item){
-console.log(item.id);
+    //console.log(item.id);
+    var zona = (item.id).slice(7);
+    console.log(zona);
+    var idZona = obtener_idzona(zona);
+    console.log(idZona);
+    var url="borrar_zona.php?idzona="+idZona;
+    $.get(url, function(data, status){
+        if(status=="success"){
+            console.log(data);
+           cargar_zonas_asociadas(data);
+        }
+
+
+    });
 }

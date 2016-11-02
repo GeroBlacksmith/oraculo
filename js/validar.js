@@ -1,6 +1,7 @@
 /**
  * Created by Gero on 16/10/2016.
  */
+
 function verificarCuenta() {
     var bandera = false;
     $.ajax({

@@ -33,7 +33,7 @@ and open the template in the editor.
 
 
     <!-- Estilos principal -->
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -76,7 +76,7 @@ and open the template in the editor.
                 <!-- carga dinamica de las zonas -->
                 <div id="resultado-zonas"></div>
 
-                <a class="waves-effect waves-light btn green darken-1" id="boton-agregar-zona" href="#"><i
+                <a class="waves-effect waves-light btn green darken-1" id="boton-agregar-zona"><i
                         class="material-icons right">add</i>Agregar zona</a>
 
             </div>
@@ -112,6 +112,6 @@ and open the template in the editor.
     </div>
 </div>
 
-<script src="perfil.js"></script>
+<script src="js/perfil.js"></script>
 </body>
 </html>

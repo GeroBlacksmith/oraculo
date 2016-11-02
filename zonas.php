@@ -5,6 +5,9 @@ include_once 'libs/PDOConfig.php';
  * User: Gero
  * Date: 24/10/2016
  * Time: 12:49 AM
+ *
+ *
+ * Inserta una zona, se llama por ajax con post con los datos idzona e idusuario o con una descripcion.
  */
 if ($_POST) {
     $db = new PDOConfig();
@@ -22,6 +25,8 @@ if ($_POST) {
 
 
     }else {
+        //TODO hacer un select si devuelve un resultado con la idZona y el idUsuarios que estamos por ingresar entonces no insertar
+
         if(isset($_POST['idzona'])) {
             $idzona = $_POST['idzona'];
         }else{

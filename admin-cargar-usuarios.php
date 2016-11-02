@@ -8,6 +8,8 @@
 include "libs/PDOConfig.php";
 $html="";
 $bd = new PDOConfig();
+//Obtiene los usuarios que tienen asignada una zona
+//Muestra solo el nombre del usuario y la descripcion del area asignada.
 $sql="SELECT usuarios.nombre, zona.descripcion
              FROM usuarios JOIN zona LEFT JOIN asociarzona ON ( asociarzona.idUsuarios=usuarios.idUsuarios)
             WHERE asociarzona.idZona=zona.idZona;";

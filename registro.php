@@ -12,7 +12,7 @@ and open the template in the editor.
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Estilos principal -->
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -68,7 +68,7 @@ and open the template in the editor.
 
 
 <!-- scripts -->
-<script src="validar.js"></script>
+<script src="js/validar.js"></script>
 
 </body>
 </html>

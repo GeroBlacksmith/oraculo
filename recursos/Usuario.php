@@ -1,6 +1,6 @@
 <?php
 
-class Usuario
+class Usuario implements Query
 {
     private $id_usuario;
     private $id_rol;
@@ -120,7 +120,7 @@ class Usuario
         // TODO: Implement __destruct() method.
     }
 
-    public function insertar()
+    public function insertar($dato)
     {
 
         $sql = "INSERT INTO usuarios(idRol, nombre,cuenta, correo, clave)  VALUES(";
@@ -143,4 +143,18 @@ class Usuario
         return $sql;
     }
 
+    public function obtener($dato)
+    {
+        // TODO: Implement obtener() method.
+    }
+
+    public function actualizar($dato)
+    {
+        // TODO: Implement actualizar() method.
+    }
+
+    public function borrar($dato)
+    {
+        // TODO: Implement borrar() method.
+    }
 }
