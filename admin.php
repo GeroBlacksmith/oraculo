@@ -57,11 +57,7 @@ if ($oLogin->activa()) {
         <h4> Administrador</h4>
         <br>
 
-        <ul>
-            <li>Inicio</li>
-            <li>Mensajes</li>
-            <li>Opciones</li>
-        </ul>
+
         <div class="row">
             <ul>
                 <li>
@@ -70,12 +66,18 @@ if ($oLogin->activa()) {
                 <li>
                     <button class="btn col s8" id="boton_ver_usuarios">Usuarios</button>
                 </li>
+                <li>
+                    <button class="btn col s8" id="boton_agregar_zona">Alertas</button>
+                </li>
+                <li>
+                    <button class="btn col s8" id="boton_ver_usuarios">Colaboraciones</button>
+                </li>
             </ul>
         </div>
 
     </div>
 
-    <div class="col s12 m8 l9 contenido cyan lighten-5"> <!-- Note that "m8 l9" was added -->
+    <div class="col s12 m8 l9 contenido cyan lighten-5">
         <nav class="black">
             <div class="nav-wrapper">
                 <a href="#" class="brand-logo left">ORACULO</a>
@@ -90,12 +92,6 @@ if ($oLogin->activa()) {
             </div>
         </nav>
         <hr>
-        <!-- Teal page content
-
-              This content will be:
-          9-columns-wide on large screens,
-          8-columns-wide on medium screens,
-          12-columns-wide on small screens  -->
         <div class="row" id="agregarzona">
 
             <form action="insertar-zona.php" class="col s12" method="post" onsubmit="return true;">

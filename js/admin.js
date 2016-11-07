@@ -1,31 +1,32 @@
 /**
  * Created by Gero on 27/10/2016.
  */
-var form=document.querySelector("#agregarzona > form");
-var verusuario=document.querySelector("#verusuarios");
+$(document).ready(function(){
+    var form=$("#agregarzona > form");
+    var verusuario=$("#verusuarios");
 
-var boton_agregar_zona = document.querySelector("#boton_agregar_zona");
-var boton_ver_usuarios = document.querySelector("#boton_ver_usuarios");
-var infousuarios = document.querySelector("#info-usuarios");
+    var boton_agregar_zona = $("#boton_agregar_zona");
+    var boton_ver_usuarios = $("#boton_ver_usuarios");
+    var infousuarios = $("#info-usuarios");
+    form.css("display","block");
+    verusuario.css("display","none");
+    boton_agregar_zona.click( function () {
+        form.css("display","block");
+        verusuario.css("display","none");
+    });
 
-boton_agregar_zona.addEventListener("click", function () {
-    form.style.display="block";verusuario.style.display="none";
-});
+    boton_ver_usuarios.click( function () {
+        form.css("display","none");
+        verusuario.css("display","block")
+    });
+    $.get(
+       "admin-cargar-usuarios.php",
+        function(data, status){
+            console.log(status);
+            infousuarios.html(data);
+        }
+    );
+})
 
-boton_ver_usuarios.addEventListener("click", function () {
-    form.style.display="none";verusuario.style.display="block";
-});
 
-//onload o ready
-form.style.display="block";verusuario.style.display="none";
 
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText);
-        console.log("Hola");
-        infousuarios.innerHTML = this.responseText;
-    }
-};
-xhttp.open("GET", "admin-cargar-usuarios.php", true);
-xhttp.send();

@@ -23,76 +23,75 @@ $(document).ready(function () {
 
     });
 
-
-});
-function post_en_asociar_zona(idzona, idusuario) {
-    $.post(
-        "zonas.php",
-        {
-            'idzona': idzona,
-            'idusuario': idusuario
-        },
-        function (data, status) {
-            if(status=="success"){
-                cargar_zonas_asociadas(idusuario);
-             //   console.log(data);
-             //   console.log(status);
-            }else{
-                console.log("Algo salio mal");
+    function post_en_asociar_zona(idzona, idusuario) {
+        $.post(
+            "zonas.php",
+            {
+                'idzona': idzona,
+                'idusuario': idusuario
+            },
+            function (data, status) {
+                if(status=="success"){
+                    cargar_zonas_asociadas(idusuario);
+                    //   console.log(data);
+                    //   console.log(status);
+                }else{
+                    console.log("Algo salio mal");
+                }
             }
-        }
-    )
-}
-function obtener_idzona(descripcion) {
-    $.post(
-        "zonas.php",
-        {
-            'descripcion': descripcion
-        },
-        function (data, status) {
-            if (status == "success") {
-                console.log(data);
-                return data;
+        )
+    }
+    function obtener_idzona(descripcion) {
+        $.post(
+            "zonas.php",
+            {
+                'descripcion': descripcion
+            },
+            function (data, status) {
+                if (status == "success") {
+                    console.log(data);
+                    return data;
+                } else {
+                    console.log("No se obtuvo idZona");
+                }
+            });
+    }
+
+    function cargar_select_zonas() {
+        $.get("zonas.php", function (data, status) {
+
+            if (status = 200) {
+                $("#resultado-zonas").html(data);
             } else {
-                console.log("No se obtuvo idZona");
+                $("#resultado-zonas").html("Error al cargar las zonas");
             }
+
+
         });
-}
+    }
 
-function cargar_select_zonas() {
-    $.get("zonas.php", function (data, status) {
-
-        if (status = 200) {
-            $("#resultado-zonas").html(data);
-        } else {
-            $("#resultado-zonas").html("Error al cargar las zonas");
-        }
-
-
-    });
-}
-
-function cargar_zonas_asociadas(idusuario){
-     var url='asociar.php?idusuario='+idusuario;
-    $.get(url, function(data,status){
-        console.log(data);
-        $(".zonas_elegidas").html(data);
-    });
-}
-
-function borrar(item){
-    //console.log(item.id);
-    var zona = (item.id).slice(7);
-    console.log(zona);
-    var idZona = obtener_idzona(zona);
-    console.log(idZona);
-    var url="borrar_zona.php?idzona="+idZona;
-    $.get(url, function(data, status){
-        if(status=="success"){
+    function cargar_zonas_asociadas(idusuario){
+        var url='asociar.php?idusuario='+idusuario;
+        $.get(url, function(data,status){
             console.log(data);
-           cargar_zonas_asociadas(data);
-        }
+            $(".zonas_elegidas").html(data);
+        });
+    }
+
+    function borrar(item){
+        //console.log(item.id);
+        var zona = (item.id).slice(7);
+        console.log(zona);
+        var idZona = obtener_idzona(zona);
+        console.log(idZona);
+        var url="borrar_zona.php?idzona="+idZona;
+        $.get(url, function(data, status){
+            if(status=="success"){
+                console.log(data);
+                cargar_zonas_asociadas(data);
+            }
 
 
-    });
-}
+        });
+    }
+});

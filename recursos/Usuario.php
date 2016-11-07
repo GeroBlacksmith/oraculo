@@ -1,5 +1,5 @@
 <?php
-
+require 'Query.php';
 class Usuario implements Query
 {
     private $id_usuario;

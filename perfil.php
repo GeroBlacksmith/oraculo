@@ -1,39 +1,56 @@
-<!DOCTYPE html>
 <?php
 include("libs/PDOConfig.php");
 include("libs/Login.php");
 $oLogin = new Login();
-
+$insert = null;
+$columnas = 0;
 $activa = false;
 if ($oLogin->activa()) {
 
     $activa = true;
     $nombre = $_SESSION['nombreUsuario'];
     $rol = $_SESSION['Rol'];
-    if($rol == 1){
+    if ($rol == 1) {
         header("location:admin.php");
     }
 } else {
     header("location:index.php");
 }
+$nombre = $_SESSION['nombreUsuario'];
+$idUsuarios = $_SESSION['idUsuario'];
+if ($_POST) {
+    if (isset($_POST['zonas'])) {
+        $idZona = $_POST['zonas'];
 
+        $db = new PDOConfig();
+        $sql1 = "SELECT idZona FROM asociarzona WHERE idZona= $idZona AND idUsuarios=$idUsuarios";
+        $columnas = $db->query($sql1)->rowCount();
+        //$columnas=$resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        $db = null;
+        if ($columnas === 0) {
+
+            $db = new PDOConfig();
+            $sql = "INSERT INTO asociarzona(idZona, idUsuarios)VALUES (" . $_POST['zonas'] . ", " . $idUsuarios . ")";
+            if ($db->query($sql)) {
+                $insert = "ok";
+            }
+            $db = null;
+        }
+    }
+}
+/*
+require_once ('core/init.php');
+$user = new User();*/
 ?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Oraculo</title>
     <!-- Iconos especiales de materialize -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-
-    <!-- Estilos principal -->
-    <link rel="stylesheet" href="css/main.css">
 
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -44,10 +61,13 @@ and open the template in the editor.
     <!-- Jquery -->
     <script src="http://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Estilos principal -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-<div class="idusuario"><?=$_SESSION['idUsuario']?></div>
+<div class="idusuario"><?= $_SESSION['idUsuario'] ?></div>
 
 <nav class="black darken-1">
     <div class="nav-wrapper">
@@ -57,7 +77,6 @@ and open the template in the editor.
             <?php if ($oLogin->activa()): ?>
                 <li><a href="perfil.php"><?= $oLogin->getNombreUsuario() ?></a></li>
             <?php endif; ?>
-            <li><a href="cerrar.php">Cerrar sesion</a></li>
             <li><a href="#">Nuestros Servicios</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>
@@ -69,15 +88,60 @@ and open the template in the editor.
     <div class="row">
         <div class="col s4 ">
             <div class="card-panel">
-                Usuario: <?= $nombre ?><br>
+
                 Zonas elegidas:<br>
-                <div class="zonas_elegidas"></div>
+                <div class="zonas_elegidas">
+                    <?php
+                    $db = new PDOConfig();
+
+                    $idUsuarios;
+                    $sql = "SELECT zona.idZona, zona.descripcion FROM asociarzona JOIN zona ON asociarzona.idZona=zona.idZona WHERE idUsuarios = $idUsuarios";
+                    $resultado = $db->query($sql);
+                    $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                    echo '<ol class="collection">';
+                    foreach ($arreglo as $item) {
+                        echo "<li class=\"collection-item\"><a href='#'>";
+                        echo $item['descripcion'];
+                        $aux=$item['idZona'];
+                        echo "</a>";
+                        echo "<a href='eliminar-zona.php?idZona=$aux'>";
+                        echo "<button class='btn-tiny right' href='eliminar-zona.php?idZona=$aux'>X</button></a></li>";
+
+
+
+                    }
+                    echo '</ol>';
+                    $db = null;
+                    ?>
+                </div>
+                <!-- trae de la base de datos las zonas elegidas -->
+
                 Agregar una zona para monitorear:<br>
                 <!-- carga dinamica de las zonas -->
-                <div id="resultado-zonas"></div>
+                <div id="resultado-zonas">
+                    <form method="post" action="">
+                        <select name="zonas">
+                            <?php
+                            $db = new PDOConfig();
 
-                <a class="waves-effect waves-light btn green darken-1" id="boton-agregar-zona"><i
-                        class="material-icons right">add</i>Agregar zona</a>
+                            $idUsuarios;
+                            $sql = "SELECT * FROM zona";
+                            $resultado = $db->query($sql);
+                            $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                            foreach ($arreglo as $item) {
+                                echo "<option value=\"";
+                                echo $item['idZona'];
+                                echo "\">";
+                                echo $item['descripcion'];
+                                echo "</option>";
+                            }
+                            $db = null;
+                            ?>
+                        </select>
+                        <input class="waves-effect waves-light btn green darken-1" type="submit" value="AGREGAR ZONA">
+                    </form>
+                </div>
+
 
             </div>
         </div>
@@ -112,6 +176,5 @@ and open the template in the editor.
     </div>
 </div>
 
-<script src="js/perfil.js"></script>
 </body>
 </html>
