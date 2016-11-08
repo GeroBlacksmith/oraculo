@@ -20,12 +20,6 @@ if (isset($post) && is_array($post)) {
 
 ?>
 <!DOCTYPE html>
-
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -78,21 +72,24 @@ $url = "http://api.openweathermap.org/data/2.5/weather?q=neuquen,Argentina&units
 $json = json_decode(file_get_contents($url), true);
 $img="img/weather_cloud.png";
 //$img="http://openweathermap.org/img/w/"+$json["weather"][0]["icon"]+".png";
+$clima='';
 if($json['weather'][0]['main']=="Clear"){
     $img="img/weather_sun.png";
+    $clima="despejado";
 }
 if($json['weather'][0]['main']=="Rain"){
     $img="img/weather_rain.png";
+    $clima="lluvia";
 }
 if($json['weather'][0]['main']=="Snow"){
     $img="img/weather_snow.png";
+    $clima="nieve";
 }
 if($json['weather'][0]['main']=="Cloud"){
-    $img="img/weather_sun.png";
-}
-if($json['weather'][0]['main']=="Clear"){
     $img="img/weather_cloud.png";
+    $clima="nublado";
 }
+
 ?>
 
 <div class="content">
@@ -136,12 +133,12 @@ if($json['weather'][0]['main']=="Clear"){
                 <div class="row">
                     <div class="col s12"><?= $json['name'] ?></div>
                     <div class="col s12"><?= date("d/m/Y h:m", ($json['dt'])) ?></div>
-                    <div class="col s12">Clima principal <?= $json['weather'][0]['main'] ?></div>
+                    <div class="col s12">Clima principal <?= $clima ?></div>
 
                     <div class="col s6">
                         <div>
                             <img src="<?=$img?>"><br>
-                            t°:<?= $json['main']['temp'] ?>°C<br>
+                            Temp : <?= $json['main']['temp'] ?>°C<br>
                         </div>
                     </div>
                     <div class="col s6">

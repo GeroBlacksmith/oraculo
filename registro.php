@@ -22,6 +22,8 @@ and open the template in the editor.
 
     <!-- Jquery -->
     <script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <!-- scripts -->
+    <script src="js/validar.js"></script>
 </head>
 <body>
 
@@ -67,8 +69,7 @@ and open the template in the editor.
 </div>
 
 
-<!-- scripts -->
-<script src="js/validar.js"></script>
+
 
 </body>
 </html>
