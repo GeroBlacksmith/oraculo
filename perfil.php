@@ -172,7 +172,7 @@ $user = new User();*/
                         <!--obtener las contribuciones que otros usuarios han hecho sobe las misma szonas -->
                         <?php
                         $db = new PDOConfig();
-                        $sql = "SELECT * FROM colaboracion WHERE idUsuario=$idUsuarios";
+                        $sql = "SELECT * FROM colaboracion WHERE idUsuario=$idUsuarios ORDER BY fechaInicio DESC";
                         $resultado = $db->query($sql);
                         $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($arreglo as $value) {
@@ -202,7 +202,7 @@ $user = new User();*/
                     $acumulador_1 = 0;
                     foreach ($arreglo as $value) {
                         $idZona=$value['idZona'];
-                        $sql="SELECT * FROM colaboracion JOIN usuarios ON usuarios.idUsuarios=colaboracion.idUsuario WHERE idZona=$idZona";
+                        $sql="SELECT * FROM colaboracion JOIN usuarios ON usuarios.idUsuarios=colaboracion.idUsuario WHERE idZona=$idZona ORDER BY fechaInicio DESC";
 
                         $resultado = $db->query($sql);
                         $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
