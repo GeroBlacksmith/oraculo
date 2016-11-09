@@ -7,7 +7,7 @@ $result = $db->query($sql);
 $arreglo = $result->fetchAll(PDO::FETCH_ASSOC);
 
 $api_key = "db47f4964efc61e282950fb851d1b7b0";
-
+echo "<a href='index.php'>indice</a><br>";
 foreach ($arreglo as $value) {
     $locale = ($value['descripcion']);
     $localeurl = urlencode($value['descripcion']);

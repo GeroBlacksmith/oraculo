@@ -77,7 +77,7 @@ $user = new User();*/
             <?php if ($oLogin->activa()): ?>
                 <li><a href="perfil.php"><?= $oLogin->getNombreUsuario() ?></a></li>
             <?php endif; ?>
-            <li><a href="#">Nuestros Servicios</a></li>
+            <li><a href="clima.php">Clima</a></li>
             <li><a href="#">Quienes Somos</a></li>
             <li><a href="#">Contacto</a></li>
             <li><a href="cerrar.php">Cerrar sesion</a></li>
@@ -94,19 +94,18 @@ $user = new User();*/
                     <?php
                     $db = new PDOConfig();
 
-                    $idUsuarios;
+
                     $sql = "SELECT zona.idZona, zona.descripcion FROM asociarzona JOIN zona ON asociarzona.idZona=zona.idZona WHERE idUsuarios = $idUsuarios";
                     $resultado = $db->query($sql);
                     $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     echo '<ol class="collection">';
                     foreach ($arreglo as $item) {
-                        $aux=$item['idZona'];
+                        $aux = $item['idZona'];
                         echo "<li class=\"collection-item\"><a href='alertas.php?idZona=$aux'>";
                         echo $item['descripcion'];
                         echo "</a>";
                         echo "<a href='eliminar-zona.php?idZona=$aux'>";
                         echo "<button class='btn-tiny right' href='eliminar-zona.php?idZona=$aux'>X</button></a></li>";
-
 
 
                     }
@@ -124,7 +123,7 @@ $user = new User();*/
                             <?php
                             $db = new PDOConfig();
 
-                            $idUsuarios;
+
                             $sql = "SELECT * FROM zona";
                             $resultado = $db->query($sql);
                             $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -161,16 +160,69 @@ $user = new User();*/
         </div>
         <div class="col s4">
             <div class="card-panel">
+                <button class="btn">Mias</button><button class="btn">Otros</button>
+                <div class="mias">
+                    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+                        <a class="btn-floating btn-large red" alt="agregar contribucion" href="contribuir.php">
+                            <i class="large material-icons">add</i>
+                        </a>
+                    </div>
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Contribuciones</h4></li>
+                        <!--obtener las contribuciones que otros usuarios han hecho sobe las misma szonas -->
+                        <?php
+                        $db = new PDOConfig();
+                        $sql = "SELECT * FROM colaboracion WHERE idUsuario=$idUsuarios";
+                        $resultado = $db->query($sql);
+                        $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($arreglo as $value) {
+                            echo "<li class='collection-item'>";
+                            echo $value["descripcion"];
+                            echo " <span class='date'>";
+                            echo $value['fechaInicio'];
+                            echo "</span>";
+                            echo "</li>";
+                        }
 
-                <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-                    <a class="btn-floating btn-large red" alt="agregar contribucion" href="contribuir.php">
-                        <i class="large material-icons">add</i>
-                    </a>
+
+                        $db = null;
+                        ?>
+                    </ul>
                 </div>
-                <ul class="collection with-header">
-                    <li class="collection-header"><h4>Contribuciones</h4></li>
-                    <!--obtener las contribuciones que otros usuarios han hecho sobe las misma szonas -->
-                </ul>
+                <div class="nomias">
+                    <ul class="collection with-header">
+                        <li class="collection-header"><h4>Contribuciones de los demas</h4></li>
+                    <?php
+                    $db = new PDOConfig();
+                    $sql = "SELECT DISTINCT idZona FROM asociarzona WHERE idUsuarios=$idUsuarios";
+                    //echo $sql;
+                    $resultado = $db->query($sql);
+                    $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                    $limite=5;
+                    $acumulador_1 = 0;
+                    foreach ($arreglo as $value) {
+                        $idZona=$value['idZona'];
+                        $sql="SELECT * FROM colaboracion JOIN usuarios ON usuarios.idUsuarios=colaboracion.idUsuario WHERE idZona=$idZona";
+
+                        $resultado = $db->query($sql);
+                        $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($arreglo as $valor){
+                            echo "<li class='collection-item'>";
+                            echo $valor['nombre'], "<br>";
+                            echo ( $valor["descripcion"]);
+                            echo " <span class='date'>";
+                            echo ( $valor["fechaInicio"]);
+                            echo "</span>";
+                            echo "</li>";
+                        }
+
+                    }
+
+
+                    $db = null;
+                    ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

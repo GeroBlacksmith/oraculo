@@ -27,17 +27,18 @@ if (isset($post) && is_array($post)) {
     <!-- Iconos especiales de materialize -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Estilos principal -->
-    <link rel="stylesheet" href="css/main.css">
-
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="ext/mdl/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
 
     <!-- Compiled and minified JavaScript -->
-    <script src="ext/mdl/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 
     <!-- Jquery -->
-    <script src="ext/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Estilos principal -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
@@ -114,7 +115,7 @@ if($json['weather'][0]['main']=="Cloud"){
                            alt="Iniciar sesion, asegurece de haber ingresado su nombre y contraseña en los campos previos">
                 </form>
                 <form action="registro.php">
-                    <input type="submit" class="btn" value="Registrarce"
+                    <input type="submit" class="btn" value="Registrarse"
                            alt="Registrece en nuestro sistema clickeando aqui.">
                 </form>
                 Usuario - clave:

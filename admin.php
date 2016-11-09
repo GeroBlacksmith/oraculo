@@ -57,11 +57,7 @@ if ($oLogin->activa()) {
         <h4> Administrador</h4>
         <br>
 
-        <ul>
-            <li>Inicio</li>
-            <li>Mensajes</li>
-            <li>Opciones</li>
-        </ul>
+
         <div class="row">
             <ul>
                 <li>
@@ -69,6 +65,12 @@ if ($oLogin->activa()) {
                 </li>
                 <li>
                     <button class="btn col s8" id="boton_ver_usuarios">Usuarios</button>
+                </li>
+                <li>
+                    <button class="btn col s8" id="boton_agregar_zona">Alertas</button>
+                </li>
+                <li>
+                    <button class="btn col s8" id="boton_ver_usuarios">Colaboraciones</button>
                 </li>
             </ul>
         </div>

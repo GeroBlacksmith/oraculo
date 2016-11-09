@@ -25,23 +25,24 @@ if ($oLogin->activa()) {
 $nombre = $_SESSION['nombreUsuario'];
 $idUsuarios = $_SESSION['idUsuario'];
 if ($_POST) {
-    if (isset($_POST['zonas'])) {
-        $idZona = $_POST['zonas'];
+    if (isset($_POST['zona'])) {
 
+        $idZona = $_POST['zona'];
+        $descripcion=$_POST['descripcion'];
         $db = new PDOConfig();
-        $sql1 = "SELECT idZona FROM asociarzona WHERE idZona= $idZona AND idUsuarios=$idUsuarios";
-        $columnas = $db->query($sql1)->rowCount();
-        //$columnas=$resultado->fetchAll(PDO::FETCH_ASSOC);
 
+        $duracion=strtotime(time()+(8*60*60));
+        $fechaInicio=date('Y-m-d H:i:s');
+        $fechaFin=date('Y-m-d H:i:su', $duracion);
+
+        $sqlInsertar="INSERT INTO colaboracion(fechaInicio, fechaFin, activo, idZona, idUsuario, descripcion) VALUES ('$fechaInicio','$duracion','true',$idZona,$idUsuarios,'$descripcion')";
+        print_r($sqlInsertar);
+        $inserto=$db->query($sqlInsertar);
         $db = null;
-        if ($columnas === 0) {
-
-            $db = new PDOConfig();
-            $sql = "INSERT INTO asociarzona(idZona, idUsuarios)VALUES (" . $_POST['zonas'] . ", " . $idUsuarios . ")";
-            if ($db->query($sql)) {
-                $insert = "ok";
-            }
-            $db = null;
+        if($inserto) {
+            header("location:perfil.php");
+        }else{
+            //no inserto
         }
     }
 }
@@ -91,19 +92,33 @@ $user = new User();*/
     </div>
 </nav>
 <div class="content">
-    <form action="">
+    <form action="" method="post">
         <div class="field">
             <label for="descripcion">Descripcion</label>
-            <input type="text" id="descripcion" name="decripcion">
+            <input type="text" id="descripcion" name="descripcion">
         </div>
         <div class="field">
             <label for="zona">SELECTOR DE MIS ZONAS</label>
-            <input type="text" id="zona" name="zona">
+            <select id="zona" name="zona">
+                <?php
+                $db = new PDOConfig();
+                $sql="SELECT zona.descripcion, zona.idZona FROM zona JOIN asociarzona ON asociarzona.idZona=zona.idZona WHERE asociarzona.idUsuarios=$idUsuarios";
+                $result=$db->query($sql);
+                $arreglo = $result->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($arreglo as $value){
+                    $aux = $value['descripcion'];
+                    $aux1 = $value['idZona'];
+                    echo "<option value='$aux1'>";
+                    echo $aux;
+                    echo"</option>";
+                }
+                $db = null;
+                ?>
+            </select>
+
+
         </div>
-        <div class="field">
-            <label for="tiempo">duracion</label>
-            <input type="text" id="tiempo" name="tiempo">
-        </div>
+
         <input type="submit" value="agregar colaboracion">
 
 
