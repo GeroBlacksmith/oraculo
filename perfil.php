@@ -103,6 +103,7 @@ $user = new User();*/
                         $aux = $item['idZona'];
                         echo "<li class=\"collection-item\"><a href='alertas.php?idZona=$aux'>";
                         echo $item['descripcion'];
+                        $descr=$item['descripcion'];
                         echo "</a>";
                         echo "<a href='eliminar-zona.php?idZona=$aux'>";
                         echo "<button class='btn-tiny right' href='eliminar-zona.php?idZona=$aux'>X</button></a></li>";
@@ -127,10 +128,12 @@ $user = new User();*/
                             $sql = "SELECT * FROM zona";
                             $resultado = $db->query($sql);
                             $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                            $descr="";
                             foreach ($arreglo as $item) {
                                 echo "<option value=\"";
                                 echo $item['idZona'];
                                 echo "\">";
+
                                 echo $item['descripcion'];
                                 echo "</option>";
                             }
@@ -147,8 +150,42 @@ $user = new User();*/
         <div class="col s4">
             <div class="card-panel">
                 <div>
+                    <?php
+                    /**
+                     * Created by PhpStorm.
+                     * User: Gero
+                     * Date: 14/10/2016
+                     * Time: 07:57 AM
+                     */
+                    $api_key = "db47f4964efc61e282950fb851d1b7b0";
+                    $descr=urlencode($descr);
+                    $url = "http://api.openweathermap.org/data/2.5/weather?q=Allen,Argentina&units=metric&APPID=$api_key";
+                    $json = json_decode(file_get_contents($url), true);
+                    $img="img/weather_cloud.png";
+                    //$img="http://openweathermap.org/img/w/"+$json["weather"][0]["icon"]+".png";
+                    $clima='';
+                    if($json['weather'][0]['main']=="Clear"){
+                        $img="img/weather_sun.png";
+                        $clima="despejado";
+                    }
+                    if($json['weather'][0]['main']=="Rain"){
+                        $img="img/weather_rain.png";
+                        $clima="lluvia";
+                    }
+                    if($json['weather'][0]['main']=="Snow"){
+                        $img="img/weather_snow.png";
+                        $clima="nieve";
+                    }
+                    if($json['weather'][0]['main']=="Cloud"){
+                        $img="img/weather_cloud.png";
+                        $clima="nublado";
+                    }
+                    echo $clima, "<br>";
+                    echo $json['name'];
+                    ?>
                     webservice de alertas<br>
-                    <img src="img/weather_sun.png" alt="imagen que representa el clima actual">
+                    <img src="<?=$img?>" alt="imagen que representa el clima actual"><br>
+
 
                 </div>
                 <ul class="collection with-header">
@@ -160,15 +197,15 @@ $user = new User();*/
         </div>
         <div class="col s4">
             <div class="card-panel">
-                <button class="btn">Mias</button><button class="btn">Otros</button>
+                <button class="btn" id="btn_mias">Mias</button><button class="btn" id="btn_otros">Otros</button>
                 <div class="mias">
                     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
                         <a class="btn-floating btn-large red" alt="agregar contribucion" href="contribuir.php">
                             <i class="large material-icons">add</i>
                         </a>
                     </div>
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h4>Contribuciones</h4></li>
+                    <ul class="collection with-header" id="mi_coleccion">
+                        <li class="collection-header"><h4>Mis Contribuciones</h4></li>
                         <!--obtener las contribuciones que otros usuarios han hecho sobe las misma szonas -->
                         <?php
                         $db = new PDOConfig();
@@ -177,7 +214,7 @@ $user = new User();*/
                         $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($arreglo as $value) {
                             echo "<li class='collection-item'>";
-                            echo $value["descripcion"];
+                            echo $value["descripcion"],"<br>";
                             echo " <span class='date'>";
                             echo $value['fechaInicio'];
                             echo "</span>";
@@ -190,7 +227,7 @@ $user = new User();*/
                     </ul>
                 </div>
                 <div class="nomias">
-                    <ul class="collection with-header">
+                    <ul class="collection with-header" id="otros_coleccion">
                         <li class="collection-header"><h4>Contribuciones de los demas</h4></li>
                     <?php
                     $db = new PDOConfig();
@@ -202,17 +239,20 @@ $user = new User();*/
                     $acumulador_1 = 0;
                     foreach ($arreglo as $value) {
                         $idZona=$value['idZona'];
-                        $sql="SELECT * FROM colaboracion JOIN usuarios ON usuarios.idUsuarios=colaboracion.idUsuario WHERE idZona=$idZona ORDER BY fechaInicio DESC";
+                        $sql="SELECT * FROM colaboracion JOIN usuarios ON usuarios.idUsuarios=colaboracion.idUsuario WHERE idZona=$idZona AND colaboracion.idUsuario<>$idUsuarios ORDER BY fechaInicio DESC";
 
                         $resultado = $db->query($sql);
                         $arreglo = $resultado->fetchAll(PDO::FETCH_ASSOC);
                         foreach ($arreglo as $valor){
                             echo "<li class='collection-item'>";
+                            echo " <span class='nombre-colaboracion'>";
                             echo $valor['nombre'], "<br>";
+                            echo "</span>";
                             echo ( $valor["descripcion"]);
                             echo " <span class='date'>";
                             echo ( $valor["fechaInicio"]);
                             echo "</span>";
+
                             echo "</li>";
                         }
 
@@ -227,6 +267,6 @@ $user = new User();*/
         </div>
     </div>
 </div>
-
+<script src="js/perfil_1.js"></script>
 </body>
 </html>

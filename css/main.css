@@ -64,3 +64,15 @@ body > div > div.col.s12.m8.l9.contenido.cyan.lighten-5{
 select{
     display: block;
 }
+.date{
+    font-size: x-small;
+    color:cornflowerblue;
+}
+.nombre-colaboracion{
+    font-style: oblique;
+    font-size: small;
+}
+li{
+
+    font-size: large;
+}
