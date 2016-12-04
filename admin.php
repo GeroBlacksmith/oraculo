@@ -67,10 +67,10 @@ if ($oLogin->activa()) {
                     <button class="btn col s8" id="boton_ver_usuarios">Usuarios</button>
                 </li>
                 <li>
-                    <button class="btn col s8" id="boton_agregar_zona">Alertas</button>
+                    <button class="btn col s8" id="boton_ver_alertas">Alertas</button>
                 </li>
                 <li>
-                    <button class="btn col s8" id="boton_ver_usuarios">Colaboraciones</button>
+                    <button class="btn col s8" id="boton_ver_colaboraciones">Colaboraciones</button>
                 </li>
             </ul>
         </div>
@@ -140,8 +140,16 @@ if ($oLogin->activa()) {
             </div>
             <div id="info-usuarios"></div>
         </div>
-    </div>
 
+         <div id="alertas">
+            alertas
+        </div>
+        <div id="colaboraciones">
+        COLABORACIONES
+           <div id="info-colaboraciones"></div>
+        </div>
+    </div>
+   
 </div>
 <script src="js/admin.js"></script>
 </body>

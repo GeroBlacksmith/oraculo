@@ -3,29 +3,64 @@
  */
 var form=document.querySelector("#agregarzona > form");
 var verusuario=document.querySelector("#verusuarios");
+var alertas=document.querySelector("#alertas");
+var colaboraciones=document.querySelector("#colaboraciones");
 
 var boton_agregar_zona = document.querySelector("#boton_agregar_zona");
 var boton_ver_usuarios = document.querySelector("#boton_ver_usuarios");
+var boton_ver_alertas = document.querySelector("#boton_ver_alertas");
+var boton_ver_colaboraciones = document.querySelector("#boton_ver_colaboraciones");
 var infousuarios = document.querySelector("#info-usuarios");
+var infocolaboraciones = document.querySelector("#info-colaboraciones");
 
 boton_agregar_zona.addEventListener("click", function () {
-    form.style.display="block";verusuario.style.display="none";
+    form.style.display="block";
+    verusuario.style.display="none";
+    alertas.style.display="none";
+    colaboraciones.style.display="none";
 });
 
 boton_ver_usuarios.addEventListener("click", function () {
-    form.style.display="none";verusuario.style.display="block";
+    form.style.display="none";
+    verusuario.style.display="block";
+    alertas.style.display="none";
+    colaboraciones.style.display="none";
+});
+boton_ver_alertas.addEventListener("click", function () {
+    form.style.display="none";verusuario.style.display="none";
+    alertas.style.display="block";
+    colaboraciones.style.display="none";
+});
+boton_ver_colaboraciones.addEventListener("click", function () {
+    form.style.display="none";verusuario.style.display="none";
+    alertas.style.display="none";
+    colaboraciones.style.display="block";
 });
 
 //onload o ready
-form.style.display="block";verusuario.style.display="none";
+form.style.display="block";
+verusuario.style.display="none";
+alertas.style.display="none";
+colaboraciones.style.display="none";
 
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         console.log(this.responseText);
-        console.log("Hola");
+
         infousuarios.innerHTML = this.responseText;
     }
 };
 xhttp.open("GET", "admin-cargar-usuarios.php", true);
+xhttp.send();
+
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+
+        infocolaboraciones.innerHTML = this.responseText;
+    }
+};
+xhttp.open("GET", "admin-cargar-colaboraciones.php", true);
 xhttp.send();
